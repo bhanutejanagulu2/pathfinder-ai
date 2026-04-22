@@ -36,22 +36,31 @@
         <div id="output"></div>
     </div>
     
-    <div class="card">
-    <h2>Feedback / Suggestions</h2>
+    <div class="feedback-section">
 
-    <form action="https://formspree.io/f/mojykzwz" method="POST">
+    <button onclick="toggleFeedback()">Give Feedback</button>
 
-        <label>Your Name</label>
-        <input type="text" name="name" required>
+    <div id="feedbackForm" class="feedback-form" style="display:none;">
 
-        <label>Your Email</label>
-        <input type="email" name="email" required>
+        <h3>Feedback / Suggestions</h3>
 
-        <label>Your Feedback</label>
-        <textarea name="message" rows="4" required></textarea>
+        <form action="https://formspree.io/f/xyzabcd" method="POST">
 
-        <button type="submit">Submit Feedback</button>
-    </form>
+            <label>Your Name</label>
+            <input type="text" name="name" required>
+
+            <label>Your Email</label>
+            <input type="email" name="email" required>
+
+            <label>Your Feedback</label>
+            <textarea name="message" rows="4" required></textarea>
+
+            <button type="submit">Submit Feedback</button>
+
+        </form>
+    </div>
+
+</div>
 </div>
 
 </div>
