@@ -113,26 +113,68 @@ a {
 a:hover {
     text-decoration: underline;
 }
-/* Feedback section */
-textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    margin-top: 5px;
-    margin-bottom: 15px;
-}
-/* updation more user friendly feedback button */
+
+/* Feedback Section */
 .feedback-section {
     margin-top: 20px;
     text-align: center;
 }
 
-.feedback-form {
-    margin-top: 15px;
+/* Button */
+.feedback-btn {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.feedback-btn:hover {
+    background: #5a67d8;
+}
+
+/* Feedback Card (MAIN FIX) */
+.feedback-card {
+    margin-top: 20px;
     background: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
     text-align: left;
+}
+
+/* Title */
+.feedback-card h3 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+.feedback-card input,
+.feedback-card textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Submit Button */
+.feedback-card button {
+    width: 100%;
+    padding: 10px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.feedback-card button:hover {
+    background: #5a67d8;
 }
