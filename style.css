@@ -68,7 +68,7 @@ input:focus, select:focus {
 button {
     width: 100%;
     padding: 12px;
-    background: #667eea;
+    background: linear-gradient(to right, #667eea, #764ba2);
     color: white;
     font-size: 16px;
     border: none;
@@ -77,10 +77,9 @@ button {
     transition: 0.3s;
 }
 
-/* Button hover */
 button:hover {
-    background: #5a67d8;
-    transform: scale(1.03);
+    transform: scale(1.05);
+    opacity: 0.9;
 }
 
 /* Result Card */
