@@ -93,8 +93,7 @@ button:hover {
 }
 
 /* Result Title */
-.result-card h2 {
-    text-align: center;
+.result-card {
     margin-bottom: 15px;
 }
 
