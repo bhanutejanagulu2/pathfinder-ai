@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pathfinder AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚀 Pathfinder AI</h1>
+
+    <div class="card">
+
+        <label>Enter Your Skills</label>
+        <input type="text" id="skills" placeholder="e.g. sql, python">
+
+        <label>Select Target Role</label>
+        <select id="role">
+            <option>Data Analyst</option>
+            <option>Web Developer</option>
+            <option>DevOps Engineer</option>
+            <option>Java Developer</option>
+            <option>Python Developer</option>
+            <option>ServiceNow Developer</option>
+            <option>Banking/Non-IT</option>
+        </select>
+
+        <button onclick="analyze()">Analyze</button>
+
+    </div>
+
+    <div class="result-card">
+        <h2>Result</h2>
+        <div id="output"></div>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

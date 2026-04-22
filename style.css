@@ -1,0 +1,115 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Main Container */
+.container {
+    width: 420px;
+    text-align: center;
+}
+
+/* Title */
+h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+/* Card Design */
+.card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+    color: #444;
+}
+
+/* Inputs */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: 0.3s;
+}
+
+/* Input focus effect */
+input:focus, select:focus {
+    border-color: #667eea;
+    outline: none;
+    box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    background: #667eea;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover */
+button:hover {
+    background: #5a67d8;
+    transform: scale(1.03);
+}
+
+/* Result Card */
+.result-card {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: left;
+}
+
+/* Result Title */
+.result-card h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Output styling */
+#output {
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Links */
+a {
+    color: #667eea;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+}
