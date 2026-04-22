@@ -65,7 +65,7 @@ function analyze() {
         }
     });
 
-    let output = `<b>Target Role:</b> ${role}<br>`;
+   let output = `<h3 style="color:#667eea;">${role}</h3>`;
 
     // ✅ Case 1: All skills present
     if (missing.length === 0) {
