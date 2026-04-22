@@ -124,3 +124,13 @@ function analyze() {
 
     document.getElementById("output").innerHTML = output;
 }
+
+function toggleFeedback() {
+    let form = document.getElementById("feedbackForm");
+
+    if (form.style.display === "none") {
+        form.style.display = "block";
+    } else {
+        form.style.display = "none";
+    }
+}
