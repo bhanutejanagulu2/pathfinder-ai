@@ -129,6 +129,7 @@ function analyze() {
     output += `<br>Stay consistent and keep learning to achieve your dream job! `;
 
     document.getElementById("output").innerHTML = output;
+    document.getElementById("resourceSection").style.display = "block";
 }
 
 function toggleFeedback() {
@@ -165,3 +166,34 @@ missing.forEach(skill => {
         output += `- <a href="${certificationLinks[skill]}" target="_blank">${skill} Certification</a><br>`;
     }
 });
+
+/* Function toggle resources*/
+function toggleResources() {
+
+    let content = document.getElementById("resourcesContent");
+
+    if (content.style.display === "none") {
+        content.style.display = "block";
+
+        let resourceHTML = `<b>Learning Resources & Certifications:</b><br>`;
+
+        missing.forEach(skill => {
+            resourceHTML += `- ${skill}<br>`;
+
+            if (learningLinks[skill]) {
+                resourceHTML += `&nbsp;&nbsp;• Learn: <a href="${learningLinks[skill]}" target="_blank">Click here</a><br>`;
+            }
+
+            if (certificationLinks[skill]) {
+                resourceHTML += `&nbsp;&nbsp;• Certification: <a href="${certificationLinks[skill]}" target="_blank">Click here</a><br>`;
+            }
+
+            resourceHTML += `<br>`;
+        });
+
+        content.innerHTML = resourceHTML;
+
+    } else {
+        content.style.display = "none";
+    }
+}
