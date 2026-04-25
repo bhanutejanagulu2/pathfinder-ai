@@ -146,3 +146,20 @@ function toggleFeedback() {
         form.style.display = "none";
     }
 }
+
+let certificationLinks = {
+
+    "sql": "https://www.freecodecamp.org/learn/",
+    "python": "https://www.freecodecamp.org/learn/",
+    "html": "https://www.freecodecamp.org/learn/",
+    "css": "https://www.freecodecamp.org/learn/",
+    "javascript": "https://www.freecodecamp.org/learn/",    
+    "excel": "https://www.greatlearning.in/academy",
+    "power bi": "https://learn.microsoft.com/en-us/training/",    
+    "java": "https://www.udemy.com/topic/java/free/",
+    "spring boot": "https://www.youtube.com/results?search_query=spring+boot+course",    
+    "aws": "https://aws.amazon.com/training/digital/",
+    "docker": "https://www.udemy.com/topic/docker/free/",    
+    "servicenow": "https://developer.servicenow.com/dev.do",    
+    "git": "https://www.freecodecamp.org/learn/"
+};
