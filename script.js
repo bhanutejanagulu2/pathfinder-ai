@@ -19,17 +19,11 @@ function analyze() {
     let roleSkills = {
 
     "Data Analyst": ["sql", "python", "excel", "power bi", "statistics", "data cleaning", "communication"],
-
     "Web Developer": ["html", "css", "javascript", "react", "node.js", "api", "git"],
-
     "DevOps Engineer": ["linux", "docker", "kubernetes", "aws", "ci/cd", "shell scripting"],
-
     "Java Developer": ["java", "spring boot", "sql", "api", "hibernate", "git"],
-
     "Python Developer": ["python", "django", "api", "sql", "git", "debugging"],
-
     "ServiceNow Developer": ["servicenow", "javascript", "itil", "workflows", "integration"],
-
     "Banking/Non-IT": ["communication", "excel","finance", "customer handling"]
 };
 
