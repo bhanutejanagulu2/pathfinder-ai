@@ -17,31 +17,43 @@ function analyze() {
 
     // 🎯 Role-wise required skills
     let roleSkills = {
-        "Data Analyst": ["sql", "python", "excel", "power bi"],
-        "Web Developer": ["html", "css", "javascript"],
-        "DevOps Engineer": ["linux", "docker", "kubernetes"],
-        "Java Developer": ["java", "spring", "sql"],
-        "Python Developer": ["python", "django", "api"],
-        "ServiceNow Developer": ["servicenow", "javascript", "itil"],
-        "Banking/Non-IT": ["communication", "excel", "finance"]
-    };
+
+    "Data Analyst": ["sql", "python", "excel", "power bi", "statistics", "data cleaning", "communication"],
+
+    "Web Developer": ["html", "css", "javascript", "react", "node.js", "api", "git"],
+
+    "DevOps Engineer": ["linux", "docker", "kubernetes", "aws", "ci/cd", "shell scripting"],
+
+    "Java Developer": ["java", "spring boot", "sql", "api", "hibernate", "git"],
+
+    "Python Developer": ["python", "django", "api", "sql", "git", "debugging"],
+
+    "ServiceNow Developer": ["servicenow", "javascript", "itil", "workflows", "integration"],
+
+    "Banking/Non-IT": ["communication", "excel","finance", "customer handling"]
+};
 
     // 🔗 Learning resources
     let learningLinks = {
-        "html": "https://www.w3schools.com/html/",
-        "css": "https://www.w3schools.com/css/",
-        "javascript": "https://www.w3schools.com/js/",
-        "python": "https://www.youtube.com/results?search_query=python+course",
-        "java": "https://www.youtube.com/results?search_query=java+course",
-        "sql": "https://www.youtube.com/results?search_query=sql+course",
-        "docker": "https://www.youtube.com/results?search_query=docker+tutorial",
-        "kubernetes": "https://www.youtube.com/results?search_query=kubernetes+tutorial",
-        "power bi": "https://www.youtube.com/results?search_query=power+bi+course",
-        "spring": "https://www.youtube.com/results?search_query=spring+boot+tutorial",
-        "django": "https://www.youtube.com/results?search_query=django+tutorial",
-        "servicenow": "https://www.youtube.com/results?search_query=servicenow+tutorial"
-    };
 
+    "sql": "https://www.youtube.com/results?search_query=sql+full+course",
+    "python": "https://www.youtube.com/results?search_query=python+full+course",
+    "excel": "https://www.youtube.com/results?search_query=excel+full+course",
+    "power bi": "https://www.youtube.com/results?search_query=power+bi+course",
+    "statistics": "https://www.youtube.com/results?search_query=statistics+for+data+analysis",
+    "html": "https://www.w3schools.com/html/",
+    "css": "https://www.w3schools.com/css/",
+    "javascript": "https://www.w3schools.com/js/",
+    "react": "https://www.youtube.com/results?search_query=react+course",
+    "node.js": "https://www.youtube.com/results?search_query=nodejs+course",
+    "docker": "https://www.youtube.com/results?search_query=docker+tutorial",
+    "kubernetes": "https://www.youtube.com/results?search_query=kubernetes+tutorial",
+    "aws": "https://www.youtube.com/results?search_query=aws+course",
+    "java": "https://www.youtube.com/results?search_query=java+course",
+    "spring boot": "https://www.youtube.com/results?search_query=spring+boot+course",
+    "servicenow": "https://www.youtube.com/results?search_query=servicenow+tutorial",
+    "git": "https://www.youtube.com/results?search_query=git+github+tutorial"
+};
     // 💡 Skill → Role suggestion mapping
     let skillToRoleMap = {
         "java": "Java Developer",
@@ -82,7 +94,7 @@ function analyze() {
     // ❌ Case 2: Missing skills
     else {
 
-        output += `<b>Missing Skills:</b> ${missing.join(", ")}<br><br>`;
+       output += `<br><b>Industry Required Skills:</b> ${required.join(", ")}<br>`;
 
         // 📚 Learning resources
         output += `<b>Learning Resources:</b><br>`;
