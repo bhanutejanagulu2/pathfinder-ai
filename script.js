@@ -157,3 +157,11 @@ let certificationLinks = {
     "servicenow": "https://developer.servicenow.com/dev.do",    
     "git": "https://www.freecodecamp.org/learn/"
 };
+
+output += `<br><b>Free Certification Paths:</b><br>`;
+
+missing.forEach(skill => {
+    if (certificationLinks[skill]) {
+        output += `- <a href="${certificationLinks[skill]}" target="_blank">${skill} Certification</a><br>`;
+    }
+});
