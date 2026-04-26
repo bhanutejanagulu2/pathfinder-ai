@@ -1,23 +1,15 @@
-function analyze() {
+/* GLOBAL STATE (Shared Data) */
 
-    let input = document.getElementById("skills").value;
+// Store last analysis result globally
+let currentMissingSkills = [];
+let currentRole = "";
 
-    // ✅ Validation
-    if (!input) {
-        document.getElementById("output").innerHTML = "Please enter at least one skill.";
-        return;
-    }
+/**************************************
+ * DATA CONFIGURATION
+ **************************************/
 
-    let userSkills = input
-        .toLowerCase()
-        .split(",")
-        .map(skill => skill.trim());
-
-    let role = document.getElementById("role").value;
-
-    // 🎯 Role-wise required skills
-    let roleSkills = {
-
+// Required skills per role
+const ROLE_SKILLS = {
     "Data Analyst": ["sql", "python", "excel", "power bi", "statistics", "data cleaning", "communication"],
     "Web Developer": ["html", "css", "javascript", "react", "node.js", "api", "git"],
     "DevOps Engineer": ["linux", "docker", "kubernetes", "aws", "ci/cd", "shell scripting"],
@@ -27,9 +19,8 @@ function analyze() {
     "Banking/Non-IT": ["communication", "excel","finance", "customer handling"]
 };
 
-    // 🔗 Learning resources
-    let learningLinks = {
-
+// Learning resources
+const LEARNING_LINKS = {
     "sql": "https://www.youtube.com/results?search_query=sql+full+course",
     "python": "https://www.youtube.com/results?search_query=python+full+course",
     "excel": "https://www.youtube.com/results?search_query=excel+full+course",
@@ -48,152 +39,163 @@ function analyze() {
     "servicenow": "https://www.youtube.com/results?search_query=servicenow+tutorial",
     "git": "https://www.youtube.com/results?search_query=git+github+tutorial"
 };
-    // 💡 Skill → Role suggestion mapping
-    let skillToRoleMap = {
-        "java": "Java Developer",
-        "python": "Python Developer",
-        "html": "Web Developer",
-        "css": "Web Developer",
-        "javascript": "Web Developer",
-        "sql": "Data Analyst",
-        "docker": "DevOps Engineer",
-        "kubernetes": "DevOps Engineer",
-        "servicenow": "ServiceNow Developer"
-    };
 
-    let required = roleSkills[role];
-    let missing = [];
-
-    // 🔍 Skill gap analysis
-    required.forEach(skill => {
-        if (!userSkills.includes(skill)) {
-            missing.push(skill);
-        }
-    });
-
-   let output = `<h3 style="color:#667eea;">${role}</h3>`;
-
-    // ✅ Case 1: All skills present
-    if (missing.length === 0) {
-        output += `
-            <b style="color:green;">You already have required skills!</b><br><br>
-            You can apply on:<br>
-            - LinkedIn<br>
-            - Naukri<br>
-            - Indeed<br><br>
-            Keep practicing and improving 🚀
-        `;
-    }
-
-    // ❌ Case 2: Missing skills
-    else {
-
-       output += `<br><b>Industry Required Skills:</b> ${required.join(", ")}<br>`;
-
-        // 📚 Learning resources
-        output += `<b>Learning Resources:</b><br>`;
-        missing.forEach(skill => {
-            if (learningLinks[skill]) {
-                output += `- <a href="${learningLinks[skill]}" target="_blank">${skill}</a><br>`;
-            } else {
-                output += `- ${skill} (search online)<br>`;
-            }
-        });
-
-        // ⏱️ Dynamic time calculation
-        let totalTime = missing.length;
-
-        output += `
-            <br><b>Learning Path:</b> Beginner -> Intermediate -> Advanced<br>
-            <b>Estimated Time:</b> ${totalTime} month(s)<br>
-        `;
-
-        // 🎯 Alternative role suggestions
-        let suggestedRoles = [];
-
-        userSkills.forEach(skill => {
-            if (skillToRoleMap[skill] && skillToRoleMap[skill] !== role) {
-                suggestedRoles.push(skillToRoleMap[skill]);
-            }
-        });
-
-        suggestedRoles = [...new Set(suggestedRoles)];
-
-        if (suggestedRoles.length > 0) {
-            output += `<br><b>Suggestion:</b><br>`;
-            output += `Based on your current skills, you can also explore roles like: ${suggestedRoles.join(", ")}<br>`;
-        }
-    }
-
-    // 🚀 Final motivational line
-    output += `<br>Stay consistent and keep learning to achieve your dream job! `;
-
-    document.getElementById("output").innerHTML = output;
-    document.getElementById("resourceSection").style.display = "block";
-}
-
-function toggleFeedback() {
-    let form = document.getElementById("feedbackForm");
-
-    if (form.style.display === "none") {
-        form.style.display = "block";
-    } else {
-        form.style.display = "none";
-    }
-}
-
-let certificationLinks = {
-
+// Free certification links
+const CERTIFICATION_LINKS = {
     "sql": "https://www.freecodecamp.org/learn/",
     "python": "https://www.freecodecamp.org/learn/",
     "html": "https://www.freecodecamp.org/learn/",
     "css": "https://www.freecodecamp.org/learn/",
-    "javascript": "https://www.freecodecamp.org/learn/",    
+    "javascript": "https://www.freecodecamp.org/learn/",
     "excel": "https://www.greatlearning.in/academy",
-    "power bi": "https://learn.microsoft.com/en-us/training/",    
+    "power bi": "https://learn.microsoft.com/en-us/training/",
     "java": "https://www.udemy.com/topic/java/free/",
-    "spring boot": "https://www.youtube.com/results?search_query=spring+boot+course",    
     "aws": "https://aws.amazon.com/training/digital/",
-    "docker": "https://www.udemy.com/topic/docker/free/",    
-    "servicenow": "https://developer.servicenow.com/dev.do",    
+    "docker": "https://www.udemy.com/topic/docker/free/",
+    "servicenow": "https://developer.servicenow.com/dev.do",
     "git": "https://www.freecodecamp.org/learn/"
 };
 
-output += `<br><b>Free Certification Paths:</b><br>`;
+/* MAIN FUNCTION (ENTRY POINT)*/
+function analyze() {
 
-missing.forEach(skill => {
-    if (certificationLinks[skill]) {
-        output += `- <a href="${certificationLinks[skill]}" target="_blank">${skill} Certification</a><br>`;
+    const input = document.getElementById("skills").value;
+    const role = document.getElementById("role").value;
+
+    // Validation
+    if (!input.trim()) {
+        updateOutput("Please enter at least one skill.");
+        return;
     }
-});
 
-/* Function toggle resources*/
+    const userSkills = formatSkills(input);
+
+    // Save globally
+    currentRole = role;
+
+    // Get missing skills
+    const missingSkills = getMissingSkills(userSkills, role);
+
+    // Save globally for reuse
+    currentMissingSkills = missingSkills;
+
+    // Generate UI
+    const resultHTML = buildResultHTML(role, missingSkills, userSkills);
+
+    updateOutput(resultHTML);
+
+    document.getElementById("resourceSection").style.display = "block";
+}
+
+/* HELPER FUNCTIONS*/
+
+// Convert input string → array
+function formatSkills(input) {
+    return input
+        .toLowerCase()
+        .split(",")
+        .map(skill => skill.trim());
+}
+
+// Find missing skills
+function getMissingSkills(userSkills, role) {
+    const required = ROLE_SKILLS[role];
+    return required.filter(skill => !userSkills.includes(skill));
+}
+
+// Update UI safely
+function updateOutput(html) {
+    document.getElementById("output").innerHTML = html;
+}
+
+/* UI BUILDING FUNCTIONS*/
+
+function buildResultHTML(role, missingSkills, userSkills) {
+
+    let html = `<h3 style="color:#667eea;">${role}</h3>`;
+
+    // Case 1: All skills present
+    if (missingSkills.length === 0) {
+        html += `
+            <b style="color:green;">You already have required skills!</b><br><br>
+            Apply on:
+            <br>- LinkedIn
+            <br>- Naukri
+            <br>- Indeed
+            <br><br>Keep growing 🚀
+        `;
+        return html;
+    }
+
+    // Case 2: Missing skills
+    const required = ROLE_SKILLS[role];
+
+    html += `<b>Required Skills:</b> ${required.join(", ")}<br><br>`;
+
+    html += buildLearningSection(missingSkills);
+
+    html += `
+        <br><b>Estimated Time:</b> ${missingSkills.length} month(s)
+        <br><b>Path:</b> Beginner → Intermediate → Advanced
+    `;
+
+    html += `<br><br>Stay consistent and you'll get there 🚀`;
+
+    return html;
+}
+
+// Learning links section
+function buildLearningSection(missingSkills) {
+    let html = `<b>Learning Resources:</b><br>`;
+
+    missingSkills.forEach(skill => {
+        const link = LEARNING_LINKS[skill];
+
+        if (link) {
+            html += `- <a href="${link}" target="_blank">${skill}</a><br>`;
+        } else {
+            html += `- ${skill}<br>`;
+        }
+    });
+
+    return html;
+}
+
+/* RESOURCE TOGGLE (BUTTON CLICK) */
 function toggleResources() {
 
-    let content = document.getElementById("resourcesContent");
+    const container = document.getElementById("resourcesContent");
 
-    if (content.style.display === "none") {
-        content.style.display = "block";
+    if (container.style.display === "none") {
 
-        let resourceHTML = `<b>Learning Resources & Certifications:</b><br>`;
+        container.style.display = "block";
 
-        missing.forEach(skill => {
-            resourceHTML += `- ${skill}<br>`;
+        let html = `<b>Learning + Certifications:</b><br><br>`;
 
-            if (learningLinks[skill]) {
-                resourceHTML += `&nbsp;&nbsp;• Learn: <a href="${learningLinks[skill]}" target="_blank">Click here</a><br>`;
+        currentMissingSkills.forEach(skill => {
+
+            html += `<b>${skill}</b><br>`;
+
+            if (LEARNING_LINKS[skill]) {
+                html += `• Learn: <a href="${LEARNING_LINKS[skill]}" target="_blank">Click</a><br>`;
             }
 
-            if (certificationLinks[skill]) {
-                resourceHTML += `&nbsp;&nbsp;• Certification: <a href="${certificationLinks[skill]}" target="_blank">Click here</a><br>`;
+            if (CERTIFICATION_LINKS[skill]) {
+                html += `• Certificate: <a href="${CERTIFICATION_LINKS[skill]}" target="_blank">Click</a><br>`;
             }
 
-            resourceHTML += `<br>`;
+            html += `<br>`;
         });
 
-        content.innerHTML = resourceHTML;
+        container.innerHTML = html;
 
     } else {
-        content.style.display = "none";
+        container.style.display = "none";
     }
+}
+
+/* FEEDBACK TOGGLE */
+function toggleFeedback() {
+    const form = document.getElementById("feedbackForm");
+    form.style.display = (form.style.display === "none") ? "block" : "none";
 }
