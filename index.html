@@ -1,77 +1,145 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Pathfinder AI</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pathfinder AI – Career Navigator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<div class="container">
+<div class="header">
+  <div class="badge">✦ Career Intelligence Tool</div>
+  <h1>🚀 Pathfinder AI</h1>
+  <p>Skill gap analysis · Personalized roadmap · Free resources</p>
+</div>
 
-    <h1>🚀 Pathfinder AI</h1>
+<div class="page">
 
-    <div class="card">
+  <!-- ── INPUT CARD ── -->
+  <div class="card">
+    <div class="form-grid">
+      <div class="field" style="grid-column: 1/-1;">
+        <label>Your Current Skills</label>
+        <input id="skills" type="text" placeholder="e.g. python, sql, excel, communication"/>
+        <span class="hint">Separate multiple skills with commas</span>
+      </div>
 
-        <label>Enter Your Skills</label>
-        <input type="text" id="skills" placeholder="e.g. sql, python">
-
-        <label>Select Target Role</label>
+      <div class="field">
+        <label>Target Role</label>
         <select id="role">
-            <option>Data Analyst</option>
-            <option>Web Developer</option>
-            <option>DevOps Engineer</option>
-            <option>Java Developer</option>
-            <option>Python Developer</option>
-            <option>ServiceNow Developer</option>
-            <option>Banking/Non-IT</option>
+          <option>Data Analyst</option>
+          <option>Web Developer</option>
+          <option>DevOps Engineer</option>
+          <option>Java Developer</option>
+          <option>Python Developer</option>
+          <option>ServiceNow Developer</option>
+          <option>Cloud Engineer</option>
+          <option>Data Engineer</option>
+          <option>QA / Test Engineer</option>
+          <option>Banking / Non-IT to IT</option>
         </select>
+      </div>
 
-        <button onclick="analyze()">Analyze</button>
-
+      <div class="field">
+        <label>Experience Level</label>
+        <div class="xp-pills">
+          <div class="xp-pill active" data-xp="fresher">🎓 Fresher</div>
+          <div class="xp-pill" data-xp="experienced">💼 Experienced</div>
+          <div class="xp-pill" data-xp="career-change">🔄 Career Change</div>
+        </div>
+      </div>
     </div>
 
-    <div class="result-card">
-        <h2>Result</h2>
-        <div id="output"></div>
+    <button class="btn-analyze" onclick="analyze()">⚡ Analyze My Profile</button>
+  </div>
+
+  <!-- ── RESULTS ── -->
+  <div id="resultsBox">
+
+    <!-- Score card -->
+    <div class="card">
+      <div class="score-row">
+        <div class="ring-wrap">
+          <svg width="90" height="90" viewBox="0 0 90 90">
+            <circle class="ring-bg" cx="45" cy="45" r="38"/>
+            <circle id="ringFill" class="ring-fill" cx="45" cy="45" r="38"
+              stroke-dasharray="238.76"
+              stroke-dashoffset="238.76"/>
+          </svg>
+          <div class="ring-label">
+            <span class="pct" id="ringPct">0%</span>
+            <span class="sub">READY</span>
+          </div>
+        </div>
+        <div class="score-info">
+          <h2 id="roleTitle">—</h2>
+          <p id="scoreDesc">—</p>
+        </div>
+      </div>
+
+      <div class="sec-title" style="margin-top:4px;">✅ Skills You Already Have</div>
+      <div class="chips" id="haveChips"></div>
+
+      <div class="sec-title" style="margin-top:16px;">❌ Skills You Need to Learn</div>
+      <div class="chips" id="missChips"></div>
     </div>
-    <div id="resourceSection" style="display:none;">
-    <button onclick="toggleResources()">View Learning Resources</button>
 
-    <div id="resourcesContent" style="display:none;"></div>
-</div>
-    <div class="feedback-section">
-
-    <button class="feedback-btn" onclick="toggleFeedback()">Give Feedback</button>
-
-    <div id="feedbackForm" class="feedback-card" style="display:none;">
-
-        <h3>Feedback / Suggestions</h3>
-
-        <form action="https://formspree.io/f/mojykzwz" method="POST">
-
-            <label>Your Name</label>
-            <input type="text" name="name" required>
-
-            <label>Your Email</label>
-            <input type="email" name="email" required>
-
-            <label>Your Feedback</label>
-            <textarea name="message" rows="4" required></textarea>
-
-            <button type="submit">Submit Feedback</button>
-
-        </form>
+    <!-- Roadmap -->
+    <div class="card" id="roadmapCard">
+      <div class="sec-title" style="margin-bottom:18px;">🗺️ Your Learning Roadmap</div>
+      <div class="roadmap" id="roadmapList"></div>
     </div>
 
-</div>
+    <!-- Resources -->
+    <div class="card">
+      <div class="sec-title" style="margin-bottom:14px;">📚 Learning Resources & Certifications</div>
+      <div class="res-grid" id="resGrid"></div>
+    </div>
 
-</div>
-</div>
+    <!-- Alternative roles -->
+    <div class="card" id="altCard" style="display:none">
+      <div class="sec-title" style="margin-bottom:14px;">💡 Alternative Roles Based on Your Skills</div>
+      <div class="alt-roles" id="altRoles"></div>
+    </div>
 
-</div>
+    <!-- Motivation -->
+    <div class="motive" id="motiveBox"></div>
+
+  </div><!-- /resultsBox -->
+
+  <!-- Feedback toggle -->
+  <button class="btn-toggle" onclick="toggleFeedback()">💬 Share Feedback / Suggestions</button>
+
+  <div class="feedback-card" id="feedbackForm">
+    <h3>Feedback &amp; Suggestions</h3>
+    <form action="https://formspree.io/f/mojykzwz" method="POST">
+      <div class="form-grid" style="margin-bottom:12px;">
+        <div class="field">
+          <label>Name</label>
+          <input type="text" name="name" placeholder="Your name" required/>
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@email.com" required/>
+        </div>
+      </div>
+      <div class="field" style="margin-bottom:14px;">
+        <label>Message</label>
+        <textarea name="message" rows="4" placeholder="What can we improve?" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Feedback 🚀</button>
+    </form>
+  </div>
+
+  <p class="notice">
+    Pathfinder AI is a free tool for freshers and career changers.<br>
+    Resources link to free platforms — <strong>no paid courses are promoted.</strong>
+  </p>
+
+</div><!-- /page -->
 
 <script src="script.js"></script>
-
 </body>
 </html>
